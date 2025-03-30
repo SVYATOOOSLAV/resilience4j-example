@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: resilience4j-example
+  profiles:
+    include:
+      - circuitbreaker
+
+management:
+  health:
+    circuitbreakers:
+      enabled: false
+    endpoints:
+      web:
+        exposure:
+          include: '*'
+    endpoint:
+      health:
+        show-details: always
