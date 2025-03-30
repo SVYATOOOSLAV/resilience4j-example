@@ -3,11 +3,11 @@ resilience4j:
     instances:
       breaker_instance:
         registerHealthIndicator: true
-        eventConsumerBufferSize: 10
+        eventConsumerBufferSize: 10 # last events
         automaticTransitionFromOpenToHalfOpenEnabled: true
-        failureRateThreshold: 50
-        minimumNumberOfCalls: 5
-        permittedNumberOfCallsInHalfOpenState: 3
-        slidingWindowSize: 10
-        waitDurationInOpenState: 5s
         slidingWindowType: COUNT_BASED
+        slidingWindowSize: 10 # Count requests for analyze
+        failureRateThreshold: 50 # % failure request, connect with slidingWindowSize, change status to OPEN
+        waitDurationInOpenState: 5s # Times waiting in OPEN state and change to HALF_OPEN status
+        permittedNumberOfCallsInHalfOpenState: 3 # Count request in HALF_OPEN state, if success then change status to CLOSED
+        minimumNumberOfCalls: 5 # circuitbreaker wait this count request to analyze

@@ -21,7 +21,7 @@ public class OrderController {
 
     private final RestTemplate restTemplate;
 
-    @GetMapping("/{id}")
+    @GetMapping("/circuitbreaker/{id}")
     @CircuitBreaker(name = "breaker_instance", fallbackMethod = "fallbackToDb")
     public ResponseEntity<String> getOrderById(@PathVariable("id") int id) {
         ResponseEntity<String> response = restTemplate.getForEntity("/response/200", String.class);
