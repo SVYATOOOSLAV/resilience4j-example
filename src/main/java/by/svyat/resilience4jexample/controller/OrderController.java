@@ -1,6 +1,7 @@
 package by.svyat.resilience4jexample.controller;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,16 @@ public class OrderController {
         return ResponseEntity.ok(String.format("Successfully find order with id: [%s]",id));
     }
 
-    public ResponseEntity<String> fallbackToDb(Exception e) {
-        return ResponseEntity.ok("Successfully find order with from db");
+    @GetMapping("/retry/{id}")
+    @Retry(name = "retry_instance")
+    public ResponseEntity<String> getOrderByIdRetry(@PathVariable("id") int id) {
+        log.debug("Call external service");
+        ResponseEntity<String> response = restTemplate.getForEntity("/response/200", String.class);
+        log.info(response.getBody());
+        return ResponseEntity.ok(String.format("Successfully find order with id: [%s]",id));
+    }
+
+    public ResponseEntity<String> fallbackToDb(int id, Exception e) {
+        return ResponseEntity.ok(String.format("Successfully find order from db with id %s", id));
     }
 }

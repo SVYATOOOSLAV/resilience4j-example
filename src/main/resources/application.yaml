@@ -4,6 +4,9 @@ spring:
   profiles:
     include:
       - circuitbreaker
+      - retry
+  main:
+    banner-mode: off
 
 management:
   info:
@@ -17,3 +20,7 @@ management:
   health:
     circuitbreakers:
       enabled: true
+
+logging:
+  level:
+    by.svyat: DEBUG
