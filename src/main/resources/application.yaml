@@ -5,6 +5,7 @@ spring:
     include:
       - circuitbreaker
       - retry
+      - ratelimiter
   main:
     banner-mode: off
 

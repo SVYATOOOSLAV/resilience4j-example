@@ -1,0 +1,10 @@
+resilience4j:
+  ratelimiter:
+    instances:
+      ratelimiter_instance:
+        registerHealthIndicator: false
+        limitForPeriod: 2
+        limitRefreshPeriod: 10s
+        timeoutDuration: 1s
+
+# 2 request in 10 seconds. Wait 1 second before reject
